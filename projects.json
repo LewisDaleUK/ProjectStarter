@@ -1,0 +1,22 @@
+[
+	{
+		"title": "Eleventy Starter",
+		"language": "Web",
+		"description": "Quick starter project for Eleventy with some basic CSS, and predfined templates for blogs and other features",
+		"source": "https://github.com/LewisDaleUK/eleventy-starter.git",
+		"command": "npm",
+		"args": ["install"]
+	},
+	{
+		"title": "PHP Starter",
+		"language": "PHP",
+		"description": "Quick starter project for new PHP projects",
+		"source": "https://github.com/LewisDaleUK/php_starter.git"
+	},
+	{
+		"title": "Wordpress Starter",
+		"language": "PHP",
+		"description": "Starter project for setting up a new wordpress instance for plugin development",
+		"source": "https://github.com/LewisDaleUK/wordpress_starter.git"
+	}
+]
