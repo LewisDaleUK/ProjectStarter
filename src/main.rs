@@ -14,7 +14,6 @@ mod option;
 fn main() -> Result<(), std::io::Error> {
     let choices = option::load_options().unwrap();
 
-
     let term = Term::stdout();
     term.set_title("CLI Test Application");
     term.clear_screen()?;
@@ -30,7 +29,7 @@ fn main() -> Result<(), std::io::Error> {
         .items(&languages)
         .interact()?;
 
-    let templates: Vec<&option::RepoSource> = choices.iter().filter(|x| x.language == languages[chosen]).collect();
+    let templates: Vec<option::RepoSource> = choices.iter().cloned().filter(|x| x.language == languages[chosen]).collect();
 
     let options: Vec<String> =
         templates

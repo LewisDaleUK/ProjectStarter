@@ -1,11 +1,13 @@
 use std::fs::File;
 use std::io::prelude::*;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::process::Command;
+use std::collections::HashMap;
 use serde_derive::{Deserialize, Serialize};
 use git2::Repository;
+use dirs::home_dir;
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct RepoSource {
     pub title: String,
     pub language: String,
@@ -32,16 +34,46 @@ impl RepoSource {
             None => None
         };
     }
+
+    pub fn clone(&self) -> RepoSource {
+        return RepoSource {
+            title: String::from(&self.title),
+            language: String::from(&self.language),
+            description: String::from(&self.description),
+            source: String::from(&self.source),
+            command: self.command.clone()
+        };
+    }
+
 }
 
 pub fn load_options() -> Option<Vec<RepoSource>> {
-    let mut file = File::open("projects.json").ok()?;
-    let mut contents = String::new();
-    file.read_to_string(&mut contents).ok();
+    let home = home_dir().unwrap();
+    let home_path = home.to_str().unwrap();
 
-    let parsed: Vec<RepoSource> = serde_json::from_str(&contents).ok()?;
+    let files: Vec<PathBuf> = vec![
+        Path::new(&format!("{}/{}", home_path, ".config/projects.json")),
+        Path::new(&format!("{}/{}", home_path, ".projects.json")),
+        Path::new("./projects.json")
+    ].into_iter()
+        .filter(|x| x.exists())
+        .map(|x| x.canonicalize().unwrap())
+        .collect();
 
-    Some(parsed)
+    // let mut parsed: Vec<RepoSource> = Vec::new();
+
+    let mut parsed_map = HashMap::new();
+
+    for source in &files {
+        let mut file = File::open(source).ok()?;
+        let mut contents = String::new();
+        file.read_to_string(&mut contents).ok();
+        let parsed: Vec<RepoSource> = serde_json::from_str(&contents).ok()?;
+
+        for opt in parsed {
+            parsed_map.insert(String::from(&opt.title), opt.clone());
+        }
+    }
+
+    Some(Vec::from_iter(parsed_map.values().cloned()))
 }
-
-

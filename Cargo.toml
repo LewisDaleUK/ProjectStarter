@@ -9,6 +9,7 @@ edition = "2021"
 console = "0.15.1"
 crossterm = "0.24.0"
 dialoguer = { version="0.10.2", features=["fuzzy-select"] }
+dirs = "4.0.0"
 git2 = "0.15.0"
 itertools = "0.10.3"
 json = "0.12.4"
