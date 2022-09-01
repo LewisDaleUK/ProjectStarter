@@ -60,8 +60,6 @@ pub fn load_options() -> Option<Vec<RepoSource>> {
         .map(|x| x.canonicalize().unwrap())
         .collect();
 
-    // let mut parsed: Vec<RepoSource> = Vec::new();
-
     let mut parsed_map = HashMap::new();
 
     for source in &files {

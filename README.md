@@ -23,3 +23,6 @@ The `projects.json` files should contain a JSON array of objects:
 
 Once loaded, the application will run you through a wizard that will create a new directory, clone the starter project into that directory, and then run any command arguments.
 
+## Running and building
+
+This project is using Cargo, so use `cargo run` to run the project in debug mode. To build a release-ready binary, run `cargo build --release`.
