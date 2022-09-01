@@ -27,7 +27,7 @@ Once loaded, the application will run you through a wizard that will create a ne
 
 This project is using Cargo, so use `cargo run` to run the project in debug mode. To build a release-ready binary, run `cargo build --release`.
 
-## Limitations
+## Limitations
 
 Right now, cloning via git is done with HTTPS and no authentication - this means that it's not currently possible to clone private repositories. PR's welcome to fix this.
 
