@@ -26,23 +26,20 @@ impl RepoSource {
         };
         repo.remote_delete("origin").ok();
 
-        match &self.command {
-            Some(command) => Some(Command::new(command)
+        self.command.as_ref().map(|command| Command::new(command)
                 .current_dir(path.canonicalize().unwrap())
                 .output()
-                .expect(&format!("Failed to execute start command for {}", &self.title))),
-            None => None
-        };
+                .unwrap_or_else(|_| panic!("Failed to execute start command for {}", &self.title)));
     }
 
     pub fn clone(&self) -> RepoSource {
-        return RepoSource {
+        RepoSource {
             title: String::from(&self.title),
             language: String::from(&self.language),
             description: String::from(&self.description),
             source: String::from(&self.source),
             command: self.command.clone()
-        };
+        }
     }
 
 }

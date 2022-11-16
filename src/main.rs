@@ -46,7 +46,7 @@ fn main() -> Result<(), std::io::Error> {
         .with_prompt(format!("{}", style("Where should the project be created?").bold().underlined()))
         .interact_text()?;
 
-    let url = project_name.replace(" ", "-").to_lowercase();
+    let url = project_name.replace(' ', "-").to_lowercase();
 
     templates[selected_template].create(&url);
 
